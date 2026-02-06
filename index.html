@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Every Day I Love You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- External CSS -->
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Floating hearts will be injected here -->
+<div id="hearts"></div>
+
+<div class="container">
+  <h1>My Love ❤️</h1>
+  <div class="subtitle">Every single day, I choose you.</div>
+
+  <div class="card">
+    <p>
+      Loving you isn’t something I do only on special days —  
+      it’s something my heart does <strong>every single day</strong>.
+    </p>
+    <p>
+      Valentine’s week is just a reminder,  
+      but you are my constant, my comfort, my forever.
+    </p>
+    <p><strong>I love you today, tomorrow, and always.</strong></p>
+  </div>
+
+  <!-- Timer Section -->
+  <div class="timer-box">
+    <div class="timer-title" id="dayName">Valentine’s Week ❤️</div>
+    <div class="timer" id="countdown">00:00:00</div>
+    <div class="daily-message" id="dailyQuote"></div>
+  </div>
+
+  <!-- Music Control -->
+  <button id="musicBtn">▶ Play Music</button>
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="WhatsApp Audio 2026-02-07 at 00.11.15.mpeg" type="audio/mpeg">
+</audio>
+
+<script>
+/* Floating Hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = 14 + Math.random() * 22 + "px";
+  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}, 500);
+
+/* Valentine Week Data */
+const week = {
+  "02-07": { name: "Rose Day 🌹", quote: "My love blooms for you every single day." },
+  "02-08": { name: "Propose Day 💍", quote: "I choose you again and again." },
+  "02-09": { name: "Chocolate Day 🍫", quote: "Life with you is sweeter every day." },
+  "02-10": { name: "Teddy Day 🧸", quote: "You are my comfort and my home." },
+  "02-11": { name: "Promise Day 🤞", quote: "I promise to love you on ordinary days too." },
+  "02-12": { name: "Hug Day 🤗", quote: "Every hug from you heals my soul." },
+  "02-13": { name: "Kiss Day 💋", quote: "Every kiss reminds me why I love you." },
+  "02-14": { name: "Valentine’s Day ❤️", quote: "You are my forever Valentine." }
+};
+
+function updateTimer() {
+  const now = new Date();
+  const key =
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    String(now.getDate()).padStart(2, "0");
+
+  const today = week[key];
+
+  if (today) {
+    document.getElementById("dayName").innerText = today.name;
+    document.getElementById("dailyQuote").innerText =
+      today.quote + " I love you today, just like every day.";
+  } else {
+    document.getElementById("dailyQuote").innerText =
+      "Every day with you is Valentine’s Day.";
+  }
+
+  const midnight = new Date();
+  midnight.setHours(23, 59, 59, 999);
+
+  const diff = midnight - now;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  document.getElementById("countdown").innerText =
+    `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+/* Music Control */
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+let playing = false;
+
+btn.onclick = () => {
+  if (!playing) {
+    music.play();
+    btn.innerText = "⏸ Pause Music";
+  } else {
+    music.pause();
+    btn.innerText = "▶ Play Music";
+  }
+  playing = !playing;
+};
+</script>
+
+</body>
+</html>
